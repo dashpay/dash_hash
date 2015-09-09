@@ -1,4 +1,4 @@
-#include "darkcoin.h"
+#include "dash.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
@@ -17,7 +17,7 @@
 #include "sha3/sph_echo.h"
 
 
-void darkcoin_hash(const char* input, char* output)
+void dash_hash(const char* input, char* output)
 {
     sph_blake512_context     ctx_blake;
     sph_bmw512_context       ctx_bmw;

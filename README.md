@@ -1,7 +1,7 @@
-darkcoin_hash (python) v1.3
+dash_hash (python) v1.3.1
 ===========================
 
-Python module for Darkcoin's X11 hashing.
+Python module for Dash's X11 hashing.
 
 
 Install
@@ -11,11 +11,6 @@ Python 2.7 is required as well as a gcc.
 
     $ sudo python2 setup.py install
 
-Or use pip:
-
-    $ pip install darkcoin_hash
-
-[pypi.python.org/pypi/darkcoin_hash](https://pypi.python.org/pypi/darkcoin_hash)
 
 Test
 -------

@@ -1,8 +1,8 @@
 from distutils.core import setup, Extension
 
-darkcoin_hash_module = Extension('darkcoin_hash',
-                                 sources = ['darkcoinmodule.c',
-                                            'darkcoin.c',
+dash_hash_module = Extension('dash_hash',
+                                 sources = ['dashmodule.c',
+                                            'dash.c',
                                             'sha3/blake.c',
                                             'sha3/bmw.c',
                                             'sha3/groestl.c',
@@ -16,7 +16,7 @@ darkcoin_hash_module = Extension('darkcoin_hash',
                                             'sha3/shavite.c'],
                                include_dirs=['.', './sha3'])
 
-setup (name = 'darkcoin_hash',
-       version = '1.3',
-       description = 'Binding for Darkcoin X11 proof of work hashing.',
-       ext_modules = [darkcoin_hash_module])
+setup (name = 'dash_hash',
+       version = '1.3.1',
+       description = 'Binding for Dash X11 proof of work hashing.',
+       ext_modules = [dash_hash_module])

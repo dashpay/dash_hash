@@ -1,12 +1,12 @@
-import darkcoin_hash
+import dash_hash
 from binascii import unhexlify, hexlify
 
 import unittest
 
-# darkcoin block #1
-# moo@b1:~/.darkcoin$ darkcoind getblockhash 1
+# dash block #1
+# moo@b1:~/.dash$ dashd getblockhash 1
 # 000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343
-# moo@b1:~/.darkcoin$ darkcoind getblock 000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343
+# moo@b1:~/.dash$ dashd getblock 000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343
 # {
 #     "hash" : "000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343",
 #     "confirmations" : 169888,
@@ -40,8 +40,8 @@ class TestSequenceFunctions(unittest.TestCase):
         self.block_header = unhexlify(header_hex)
         self.best_hash = best_hash
 
-    def test_darkcoin_hash(self):
-        self.pow_hash = hexlify(darkcoin_hash.getPoWHash(self.block_header))
+    def test_dash_hash(self):
+        self.pow_hash = hexlify(dash_hash.getPoWHash(self.block_header))
         self.assertEqual(self.pow_hash, self.best_hash)
 
 
