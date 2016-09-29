@@ -1,4 +1,4 @@
-from distutils.core import setup, Extension
+from setuptools import setup, Extension, find_packages
 
 dash_hash_module = Extension('dash_hash',
                                  sources = ['dashmodule.c',
@@ -16,7 +16,13 @@ dash_hash_module = Extension('dash_hash',
                                             'sha3/shavite.c'],
                                include_dirs=['.', './sha3'])
 
-setup (name = 'dash_hash',
+setup (
+       name = 'dash_hash',
        version = '1.3.1',
+       packages = find_packages(exclude=["test.*"]),
        description = 'Binding for Dash X11 proof of work hashing.',
-       ext_modules = [dash_hash_module])
+       license = 'MIT',
+       keywords = "Dash X11 hash",
+       url = 'https://github.com/dashpay/dash_hash/',
+       ext_modules = [dash_hash_module],
+)

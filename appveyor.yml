@@ -1,0 +1,48 @@
+environment:
+  matrix:
+  - PYTHON: 'C:\Python27'
+    platform: amd64_x86
+  - PYTHON: 'C:\Python27-x64'
+    platform: amd64
+  - PYTHON: 'C:\Python33'
+    platform: amd64_x86
+  - PYTHON: 'C:\Python33-x64'
+    platform: amd64
+  - PYTHON: 'C:\Python34'
+    platform: amd64_x86
+  - PYTHON: 'C:\Python34-x64'
+    platform: amd64
+  - PYTHON: 'C:\Python35'
+    platform: amd64_x86
+  - PYTHON: 'C:\Python35-x64'
+    platform: amd64
+matrix:
+  fast_finish: false
+
+clone_depth: 5
+
+init:
+- 'SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%'
+- if not %platform%==mingw call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" %platform%
+- python -m pip install pip --upgrade
+- python -m pip install setuptools --upgrade
+- python -m pip install wheel --upgrade
+
+install:
+- python setup.py install
+
+build: off
+
+test_script:
+- python test.py
+
+after_test:
+- python setup.py bdist_wheel
+- python setup.py bdist_wininst
+- python setup.py bdist_msi
+
+artifacts:
+- path: dist\*
+
+cache:
+- '%LOCALAPPDATA%\pip\cache'

@@ -63,7 +63,7 @@ extern "C"{
 #pragma warning (disable: 4146)
 #endif
 
-#ifdef _GNUC
+#ifdef __GNUC__
   #define ATTR_UNUSED __attribute__((unused))
 #else
   #define ATTR_UNUSED

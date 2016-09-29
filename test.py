@@ -32,7 +32,7 @@ header_hex = ("02000000" +
     "f0ff0f1e" +
     "dbf70100")
 
-best_hash = '434341c0ecf9a2b4eec2644cfadf4d0a07830358aed12d0ed654121dd9070000'
+best_hash = b'434341c0ecf9a2b4eec2644cfadf4d0a07830358aed12d0ed654121dd9070000'
 
 class TestSequenceFunctions(unittest.TestCase):
 
