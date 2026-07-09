@@ -1,27 +1,50 @@
-name:  Build and Test C++ and Python
+name:  Build and Test Python C Extension
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '17 8 * * 1'
+  workflow_dispatch:
 
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
-        python-version: [ '2.7', '3.5', '3.6', '3.7', '3.10' ]
-        os: ['ubuntu-20.04', 'ubuntu-latest']
-        exclude:
-             - python-version: 3.5
-               os: ubuntu-latest
-             - python-version: 3.6
-               os: ubuntu-latest
+        python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12', '3.13', '3.14' ]
+        os: ['ubuntu-22.04', 'ubuntu-latest']
+        include:
+          - { python-version: '3.7', os: ubuntu-22.04 }
     runs-on: ${{ matrix.os }}
-    name: Build and test with Python ${{ matrix.python-version }}
+    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: Setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: ${{ matrix.python-version }}
       - run: |
           python -m pip install -r requirements.txt .
+          python test.py
+          yes | python -m pip uninstall dash-hash
+
+  legacy:
+    # Python 2.7/3.5/3.6 are no longer published by actions/setup-python for
+    # the available runner images, so they are tested inside the official EOL
+    # Docker images, which still ship a working interpreter and gcc.
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [ 'python:2.7-buster', 'python:3.5-buster', 'python:3.6-buster' ]
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image }}
+    name: ${{ matrix.image }}
+    steps:
+      # buster's glibc (2.28) is new enough to run checkout's bundled Node, so
+      # the same pinned version as the build job can be used here.
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - run: |
+          python -m pip install .
           python test.py
           yes | python -m pip uninstall dash-hash
